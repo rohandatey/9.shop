@@ -1,21 +1,35 @@
 // yaha axios use kiya ha data ko use kar ne se pehele but axios use kar ne  ke liye bhi 'useState' use karna hoga kyoki data ko store karne kiye
 // const [products, setProducts] = useState([]);
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Home = ({ products, setProducts }) => {
+const [loading, setLoading] = useState(false);
+
   const getProducts = async () => {
+    setLoading(true);
+
     const response = await axios("https://dummyjson.com/products");
 
     setProducts(response.data.products);
 
     console.log(response.data);
+
+    setLoading(false);
   };
 
   useEffect(() => {
     getProducts();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-[50vh]">
+        <div className="w-12 h-12 border-4 border-gray-300 border-t-purple-500 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 justify-center items-center">
