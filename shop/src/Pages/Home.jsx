@@ -1,17 +1,18 @@
 // yaha axios use kiya ha data ko use kar ne se pehele but axios use kar ne  ke liye bhi 'useState' use karna hoga kyoki data ko store karne kiye
 // const [products, setProducts] = useState([]);
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 
 const Home = ({ products, setProducts }) => {
-  // const [products, setProducts] = useState([]);
-
   const getProducts = async () => {
     const response = await axios("https://dummyjson.com/products");
+
     setProducts(response.data.products);
+
     console.log(response.data);
   };
+
   useEffect(() => {
     getProducts();
   }, []);
@@ -21,7 +22,7 @@ const Home = ({ products, setProducts }) => {
       {products.map((item, index) => {
         return (
           <div
-            className="w-[70vw] mx-auto bg-gray-300 w-[80vw] lg:w-[20vw] rounded-md overflow-hidden shadow-md mx-auto"
+            className="w-[70vw] mx-auto bg-gray-300 lg:w-[20vw] rounded-md overflow-hidden shadow-md"
             key={index}
           >
             <img
@@ -37,9 +38,10 @@ const Home = ({ products, setProducts }) => {
 
               <div className="flex justify-between my-1 items-center">
                 <span className="font-bold text-gray-700">
-                  price:{item.price} ₹
+                  price: {item.price} ₹
                 </span>
-                <button className="px-3 py-1  bg-gray-500 text-white font-bold rounded-md hover:bg-black border-2 cursor-pointer">
+
+                <button className="px-3 py-1 bg-gray-500 text-white font-bold rounded-md hover:bg-black border-2 cursor-pointer">
                   buy
                 </button>
               </div>

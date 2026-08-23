@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Navbar = ({ setProducts }) => {
   const [search, setSearch] = useState("");
 
   const searchProduct = async () => {
     const response = await axios(
-      `https://dummyjson.com/products/search?q=${search}`);
+      `https://dummyjson.com/products/search?q=${search}`,
+    );
+
     const data = response.data.products;
     setProducts(data);
   };
@@ -21,20 +24,18 @@ const Navbar = ({ setProducts }) => {
           type="search"
           placeholder="search here..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+          onChange={(e) => setSearch(e.target.value)}/>
 
         <button
           onClick={searchProduct}
-          className="px-3 py-1 bg-gray-500 text-white rounded-md mx-2 hover:bg-purple-400"
-        >
+          className="px-3 py-1 bg-gray-500 text-white rounded-md mx-2 hover:bg-purple-400">
           search
         </button>
       </div>
 
       <ul className="flex gap-3 text-xl font-bold">
-        <li>Home</li>
-        <li>Cart</li>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/card">Cart</Link></li>
       </ul>
     </nav>
   );
